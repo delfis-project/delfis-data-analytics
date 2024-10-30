@@ -1,82 +1,63 @@
 name: Python application
- 
+
 on:
-
   push:
-
     branches: [ "main" ]
-
   pull_request:
-
     branches: [ "main" ]
- 
+
 permissions:
-
   contents: read
- 
+
 jobs:
-
   build:
- 
     runs-on: ubuntu-latest
- 
     steps:
+      - uses: actions/checkout@v4
 
-    - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
 
-    - name: Set up Python 3.10
-
-      uses: actions/setup-python@v3
-
-      with:
-
-        python-version: "3.10"
-
- 
-    - name: Deploy no EC2 - AWS - Aplicativo de forms - AI
-
-      run: |
-
-            echo "Conectando no EC2"
-            echo "${{secrets.AWS_KEY_FORMS}}" > private_key && chmod 600 private_key 
-
-            ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
-                cd parte_dados/ai_forms/ && 
-                git pull && 
-                ./iniciarApp.sh "
-      - name: Deploy no EC2 - AWS RPA Transferencia de dados
-
+      - name: Deploy no EC2 - AWS - Aplicativo de forms - AI
         run: |
-  
-              echo "Conectando no EC2"
-              echo "${{secrets.AWS_KEY_TRANSFER}}" > private_key && chmod 600 private_key 
-  
-              ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-44-223-209-204.compute-1.amazonaws.com "
-                  cd parte_dados/ && 
-                  git pull && 
-                  ./executar.sh "
-  
+          echo "Conectando no EC2"
+          echo "${{secrets.AWS_KEY_FORMS}}" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
+            cd delfis-data-analytics/ai_forms/ &&
+            git pull &&
+            ./iniciarApp.sh "
+            
+      - name: Deploy no Render - Aplicativo de forms - AI
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with: 
+          service-id: srv-csh1a5pu0jms73emdh40
+          api-key: rnd_s1hFGv89lDin5Kuo3s00iCFDTaqF
+            
+      - name: Deploy no EC2 - AWS RPA Transferencia de dados
+        run: |
+          echo "Conectando no EC2"
+          echo "${{secrets.AWS_KEY_TRANSFER}}" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-44-223-209-204.compute-1.amazonaws.com "
+            cd delfis-data-analytics/ &&
+            git pull &&
+            ./executar.sh "
+
       - name: Deploy no EC2 - AWS RPA Atualização BI
+        run: |
+          echo "Conectando no EC2"
+          echo "${{secrets.AWS_KEY_BI}}" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
+            cd parte_dados/ &&
+            git pull &&
+            ./executar.sh "
 
-      run: |
-
-            echo "Conectando no EC2"
-            echo "${{secrets.AWS_KEY_BI}}" > private_key && chmod 600 private_key 
-
-            ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
-                cd parte_dados/ai_forms/ && 
-                git pull && 
-                ./executar.sh "
-          
       - name: Deploy no EC2 - AWS Streak
-
-      run: |
-
-            echo "Conectando no EC2"
-            echo "${{secrets.AWS_KEY_STREAK}}" > private_key && chmod 600 private_key 
-
-            ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
-                cd parte_dados/ && 
-                git pull && 
-                ./executar.sh "
-                
+        run: |
+          echo "Conectando no EC2"
+          echo "${{secrets.AWS_KEY_STREAK}}" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
+            cd delfis-data-analytics/ &&
+            git pull &&
+            ./executar.sh "
