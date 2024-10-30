@@ -190,6 +190,7 @@ df_tabela3.columns = ['store_picture_url' if col == 'imagem_loja_url' else col f
 df_tabela3 = df_tabela3.drop('quantidade', axis=1)
 df_tabela3 = df_tabela3.drop('duracao', axis=1)
 df_tabela3 = df_tabela3.drop('final_time', axis=1)
+df_tabela3 = df_tabela3.drop('initial_time', axis=1)
 
 df_up_4 = pd.DataFrame({
     'is_updated': df_tabela4['is_updated'],

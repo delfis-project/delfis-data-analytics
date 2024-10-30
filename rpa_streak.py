@@ -1,14 +1,12 @@
 import pandas as pd
-import psycopg2 as ps 
+import psycopg2 as ps
 from psycopg2 import sql
 import datetime
-import psycopg2 as ps
+from sqlalchemy import create_engine
 from os import getenv
-import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
-
 
 # Parâmetros de conexão com o banco de dados
 conn_params_source = {
@@ -19,19 +17,23 @@ conn_params_source = {
     "port": getenv("PORT_INSERCAO")
 }
 
+# Conexão usando SQLAlchemy
+engine = create_engine(f"postgresql+psycopg2://{conn_params_source['user']}:{conn_params_source['password']}@{conn_params_source['host']}:{conn_params_source['port']}/{conn_params_source['dbname']}")
+
 user_table = "app_user"
 streak_table = "streak"
 
 try:
-    # Conectar ao banco de dados
+    # Carregar os dados da tabela de usuários
+    day_last_log = pd.read_sql(f"SELECT id, updated_at FROM {user_table}", engine)
+
+    # Conectar ao banco de dados com psycopg2
     conn = ps.connect(**conn_params_source)
     cur = conn.cursor()
 
-    # Carregar os dados da tabela de usuários
-    day_last_log = pd.read_sql(f"SELECT id, updated_at FROM {user_table}", conn)
     for i in range(len(day_last_log)):
         last_log_date = day_last_log['updated_at'][i]
-        user_id = day_last_log['id'][i]
+        user_id = int(day_last_log['id'][i])  # Convert to native int if necessary
 
         # Verifica se o usuário não fez login nas últimas 24 horas
         if last_log_date < datetime.datetime.now() - datetime.timedelta(days=1):
@@ -46,6 +48,7 @@ try:
 
     # Commit das alterações
     conn.commit()
+    print("Alterações feitas!")
 
 except Exception as e:
     print(f"Erro ao carregar dados da tabela {user_table}: {e}")
