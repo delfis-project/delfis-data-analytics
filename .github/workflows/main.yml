@@ -26,7 +26,7 @@ jobs:
           echo "Conectando no EC2"
           echo "${{secrets.AWS_KEY_FORMS}}" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
-            cd parte_dados/ai_forms/ && 
+            cd parte_dados/delfis-data-analytics/forms_ai && 
             git pull && 
             ./iniciarApp.sh "
 
@@ -35,24 +35,24 @@ jobs:
           echo "Conectando no EC2"
           echo "${{secrets.AWS_KEY_TRANSFER}}" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-44-223-209-204.compute-1.amazonaws.com "
-            cd parte_dados/ && 
+            cd delfis-data-analytics/ && 
             git pull && 
             ./executar.sh "
 
-      - name: Deploy no EC2 - AWS RPA Atualização BI
-        run: |
-          echo "Conectando no EC2"
-          echo "${{secrets.AWS_KEY_BI}}" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
-            cd parte_dados/ai_forms/ && 
-            git pull && 
-            ./executar.sh "
+      # - name: Deploy no EC2 - AWS RPA Atualização BI
+      #   run: |
+      #     echo "Conectando no EC2"
+      #     echo "${{secrets.AWS_KEY_BI}}" > private_key && chmod 600 private_key
+      #     ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
+      #       cd delfis-data-analytics/ && 
+      #       git pull && 
+      #       ./executar.sh "
 
       - name: Deploy no EC2 - AWS Streak
         run: |
           echo "Conectando no EC2"
           echo "${{secrets.AWS_KEY_STREAK}}" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
-            cd parte_dados/ && 
+            cd delfis-data-analytics/ && 
             git pull && 
             ./executar.sh "
