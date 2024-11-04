@@ -63,5 +63,4 @@ time.sleep(2)
 
 # Fechar o navegador
 driver.close()
-
 print("Funcionou!")
