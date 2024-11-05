@@ -18,8 +18,7 @@ Este projeto é um aplicativo projetado para ajudar a reduzir o risco de Alzheim
 
 O aplicativo foi implantado nas seguintes plataformas:
 
-- **AWS**: Utilizando serviços da AWS para hospedar a aplicação e os processos de backend.
-- **Render**: Hospedagem do formulário que coleta dados para prever potenciais clientes.
+- **AWS**: Utilizando serviços da AWS para hospedar a aplicação e os processos de RPAs e e hospedagem da IA.
 
 ## Tecnologias Utilizadas
 
@@ -27,13 +26,6 @@ O aplicativo foi implantado nas seguintes plataformas:
 - Flask
 - Power BI
 - AWS (Amazon Web Services)
-- Render
 - Pandas
-- RPA (Robotic Process Automation)
-
-## Como Executar o Projeto
-
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/seu_usuario/seu_projeto.git
-   cd seu_projeto
+- Psycopg2
+- Sklearn
