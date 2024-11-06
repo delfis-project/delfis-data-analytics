@@ -6,12 +6,11 @@ Este projeto é um aplicativo projetado para ajudar a reduzir o risco de Alzheim
 
 ## Funcionalidades
 
-- **Jogos Interativos**: Inclui jogos como jogo da velha e sudoku para exercícios mentais.
 - **RPA para Análise de Dados**: Implementação de três processos de automação para análise de dados:
   - **Verificação de Entrada Diária do Usuário (Streak)**: Monitora a frequência diária de participação do usuário.
   - **Transferência de Dados**: Automação de transferências de dados entre bancos de dados.
   - **Atualização da Base de Dados do Power BI**: Atualiza automaticamente os dados no Power BI para relatórios e visualizações.
-
+- **Treinamento de IA**: Notebook em jupyter que treina 3 modelos de IA (KNN, Naive Bayes, Tree Decision)
 - **Formulário de Previsão**: Um formulário que tenta prever se uma pessoa é um possível cliente com base em dados de entrada.
 
 ## Implantação
@@ -27,13 +26,10 @@ O aplicativo foi implantado nas seguintes plataformas:
 - Flask
 - Power BI
 - AWS (Amazon Web Services)
-- Render
 - Pandas
-- RPA (Robotic Process Automation)
-
-## Como Executar o Projeto
-
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/seu_usuario/seu_projeto.git
-   cd seu_projeto
+- Psycopg2
+- SqlAlchemy
+- Sklearn
+- Joblib
+- Pickle
+- SQL
