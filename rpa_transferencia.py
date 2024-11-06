@@ -93,6 +93,19 @@ def sync_table(conn_dest, conn_source, df_all, df_changes, table_name_dest, tabl
     cur_dest.close()
     cur_source.close()
 
+# Adiciona uma função para redefinir 'is_updated' para False após sincronização
+def reset_is_updated(conn_source, table_name_source):
+    try:
+        with conn_source.cursor() as cur:
+            reset_query = sql.SQL("UPDATE {} SET is_updated = FALSE WHERE is_updated = TRUE").format(
+                sql.Identifier(table_name_source)
+            )
+            cur.execute(reset_query)
+            conn_source.commit()
+            print(f"Atualizações redefinidas para FALSE na tabela: {table_name_source}")
+    except Exception as e:
+        print(f"Erro ao redefinir is_updated na tabela {table_name_source}: {e}")
+        conn_source.rollback()
 
 #Banco do primeiro ano
 dbname_extracao = getenv("DBNAME_EXTRACAO")
@@ -205,9 +218,13 @@ time.sleep(1)
 
 #Chamada de funções
 sync_table(conn_dest, conn_source, df_tabela1, df_up_1, tabela_dest_1, tabela_origem_1)
+reset_is_updated(conn_source, tabela_origem_1)
 sync_table(conn_dest, conn_source, df_tabela2, df_up_2, tabela_dest_2, tabela_origem_2)
+reset_is_updated(conn_source, tabela_origem_2)
 sync_table(conn_dest, conn_source, df_tabela3, df_up_3, tabela_dest_3, tabela_origem_3)
+reset_is_updated(conn_source, tabela_origem_3)
 sync_table(conn_dest, conn_source, df_tabela4, df_up_4, tabela_dest_4, tabela_origem_4)
+reset_is_updated(conn_source, tabela_origem_4)
 
 
 # Fechando as conexões
