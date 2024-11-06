@@ -39,14 +39,14 @@ jobs:
             git pull && 
             ./executar.sh "
 
-      # - name: Deploy no EC2 - AWS RPA Atualização BI
-      #   run: |
-      #     echo "Conectando no EC2"
-      #     echo "${{secrets.AWS_KEY_BI}}" > private_key && chmod 600 private_key
-      #     ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-232-168-144.compute-1.amazonaws.com "
-      #       cd delfis-data-analytics/ && 
-      #       git pull && 
-      #       ./executar.sh "
+      - name: Deploy no EC2 - AWS RPA Atualização BI
+        run: |
+          echo "Conectando no EC2"
+          echo "${{secrets.AWS_KEY_BI}}" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-3-209-3-73.compute-1.amazonaws.com "
+            cd delfis-data-analytics/ && 
+            git pull && 
+            ./executar.sh "
 
       - name: Deploy no EC2 - AWS Streak
         run: |
