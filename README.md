@@ -17,7 +17,7 @@ Este projeto é um aplicativo projetado para ajudar a reduzir o risco de Alzheim
 
 O aplicativo foi implantado nas seguintes plataformas:
 
-- **AWS**: Utilizando serviços da AWS para hospedar a aplicação e os processos de backend.
+- **AWS**: Utilizando serviços da AWS para hospedar a aplicação e os processos de RPAs e e hospedagem da IA.
 
 ## Tecnologias Utilizadas
 
@@ -32,3 +32,4 @@ O aplicativo foi implantado nas seguintes plataformas:
 - Joblib
 - Pickle
 - SQL
+- Sklearn
