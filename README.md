@@ -1,4 +1,4 @@
-# Aplicativo para Redução do Risco de Alzheimer
+# Delfis! Aplicativo para Redução do Risco de Alzheimer
 
 ## Descrição
 
@@ -18,7 +18,6 @@ Este projeto é um aplicativo projetado para ajudar a reduzir o risco de Alzheim
 O aplicativo foi implantado nas seguintes plataformas:
 
 - **AWS**: Utilizando serviços da AWS para hospedar a aplicação e os processos de backend.
-- **Render**: Hospedagem do formulário que coleta dados para prever potenciais clientes.
 
 ## Tecnologias Utilizadas
 
